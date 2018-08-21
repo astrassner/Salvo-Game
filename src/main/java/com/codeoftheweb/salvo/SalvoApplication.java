@@ -29,11 +29,11 @@ public class SalvoApplication {
 									  ScoreRepository repositoryScore) {
 		return (args) -> {
 			// save a couple of customers
-			Player p1 = new Player("hulk@avengers.com");
-			Player p2 = new Player("thor@avengers.com");
-			Player p3 = new Player("ironman@avengers.com");
-			Player p4 = new Player("thanos@titan.com");
-			Player p5 = new Player("loki@jotunheim.com");
+			Player p1 = new Player("hulk@avengers.com", "123456");
+			Player p2 = new Player("thor@avengers.com", "654321");
+			Player p3 = new Player("ironman@avengers.com","abcdef");
+			Player p4 = new Player("thanos@titan.com","fedcba");
+			Player p5 = new Player("loki@jotunheim.com","1a2b3c");
 
 			repository.save(p1);
 			repository.save(p2);

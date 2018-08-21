@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles/games.css">
+    <title>Salvo</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Java confuse!</h1>
+    </header>
+
+    <section class="ListGames">
+        <ol id="gameList">
+            <li v-for="games in data">
+                <p>{{games.created}}<span v-for="gp in games.gamePlayers">, {{gp.player.email}}</span></p>
+            </li>
+        </ol>
+
+    </section>
+    
+    <section class="leaderBoard">
+       
+       <table class="board">
+           <tr>
+               <th>Name</th>
+               <th>Total</th>
+               <th>Won</th>
+               <th>Lost</th>
+               <th>Tied</th>               
+           </tr>
+           <tr v-for="(value, key) in board">
+              <td>{{value.name}}</td>
+              <td>{{value.total}}</td>
+              <td>{{value.wins}}</td>
+              <td>{{value.looses}}</td>
+              <td>{{value.draws}}</td>
+               
+           </tr>
+       </table>
+        
+    </section>
+    
+    
+
+    <!-- jQuery library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- vue -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+    <!-- vue-resource -->
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <!-- main -->
+    <script src="scripts/games.js"></script>
+
+</body>
+
+</html>

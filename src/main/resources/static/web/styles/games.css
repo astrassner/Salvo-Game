@@ -1,0 +1,16 @@
+.leaderBoard table {
+    border-collapse: collapse;
+}
+.leaderBoard table, th, td {
+    border: 1px solid black;
+}
+.leaderBoard tr{
+    display: flex;
+}
+.leaderBoard th, td{
+    height: 50px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

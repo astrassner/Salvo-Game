@@ -1,0 +1,41 @@
+#playerGrid{
+    display: flex;
+    flex-direction: column;
+}
+.gridRow{
+    display: flex;
+    flex-direction: row; 
+}
+.Grid table {
+    border-collapse: collapse;
+}
+.Grid table, th, td {
+    border: 1px solid black;
+}
+.gridCells, .gridHeaders{
+    display: flex;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+.ship{
+    background-color: #8A2BE2;
+}
+.fighters{
+    display: flex;
+    justify-content: center;
+}
+.battlefield{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.salvoPlayer{
+    background-color: yellow;
+}
+.hit{
+    background-color: red;
+}
+
+

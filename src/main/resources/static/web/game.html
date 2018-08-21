@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles/game.css">
+    <title>Salvo</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>World of Warships</h1>
+    </header>
+
+    <section class="Grid">
+        <div class="fighters">
+            <h2>{{currentPlayer}} vs. {{enemyPlayer}}</h2>
+        </div>
+        <div class="battlefield">
+            <table id="playerGrid">
+                <tr class="gridRow" v-for="letter in gridLetters">
+
+                    <th v-if="number == '' || letter == ''" class="gridHeaders" v-for="number in gridNumbers">{{letter + number}}</th>
+
+                    <td v-else class="gridCells" :id="letter + number"></td>
+
+                </tr>
+            </table>
+            <table id="salvoGrid">
+                <tr class="gridRow" v-for="letter in gridLetters">
+
+                    <th v-if="number == '' || letter == ''" class="gridHeaders" v-for="number in gridNumbers">{{letter + number}}</th>
+
+                    <td v-else class="gridCells" :data-cell=" letter + number"></td>
+
+                </tr>
+            </table>
+        </div>
+
+    </section>
+
+    <!-- jQuery library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- vue -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+    <!-- vue-resource -->
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+    <!-- main -->
+    <script src="scripts/game.js"></script>
+
+</body>
+
+</html>

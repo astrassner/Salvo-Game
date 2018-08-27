@@ -1,6 +1,7 @@
 package com.codeoftheweb.salvo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,11 +27,38 @@ public class SalvoController{
     @Autowired //build connections
     private GamePlayerRepository gamePlayerRepository;
 
+    @Autowired
+    private PlayerRepository playerRepository;
+
     @RequestMapping("/games")
-    public List<Object> getAll() {
-        return gameRepository.findAll().stream()
+    public Map<String, Object> getAll(Authentication authentication) {
+        Map<String, Object> getAll = new LinkedHashMap<>();
+
+        if(authentication != null){
+            getAll.put("player", getLoggedPlayer(authentication));
+        }
+
+        getAll.put("games", gameRepository.findAll().stream()
+                .map(game -> getGameDTO(game))
+                .collect(toList()));
+
+        return getAll;
+
+
+
+        /*return gameRepository.findAll().stream()
                                         .map(game -> getGameDTO(game))
-                                        .collect(toList());
+                                        .collect(toList());*/
+    }
+
+    public Map<String, Object> getLoggedPlayer (Authentication authentication){
+        Map<String, Object> loggedPlayer = new LinkedHashMap<>();
+        Player authPlayer = playerRepository.findByUserName(authentication.getName());
+
+        loggedPlayer.put("id", authPlayer.getId());
+        loggedPlayer.put("name", authPlayer.getUserName());
+
+        return loggedPlayer;
     }
 
     @RequestMapping("/game_view/{nn}")

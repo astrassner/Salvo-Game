@@ -42,6 +42,7 @@ var games = new Vue({
     data: {
         url: "http://localhost:8080/api/games",
         data: [],
+        currentUser: "",
 
     },
     created: function () {
@@ -53,6 +54,7 @@ var games = new Vue({
             .then(function(r){
                 return r.json().then(function(data){
                     games.data = data;
+                    games.getCurrentUser();
                 })
             });
 //            this.$http.get(this.url).then(response => {
@@ -60,7 +62,40 @@ var games = new Vue({
 //                this.data = response.body;
 //                console.log(this.data);
 //            })
+        },
+        login: function(){
+            
+            var username = $("#username").val();
+            var password = $("#password").val();
+                             
+            $.post("/api/login", 
+                {username: username,
+                password: password})
+            .done(function(){
+                
+                location.reload()
+            })
+            .fail();
+        },
+        logout: function(evt){
+            evt.preventDefault();
+            
+            $.post("/api/logout")
+            .done(function(){
+                
+                location.reload()
+            })
+            .fail()
+        },
+        getCurrentUser: function(){
+            
+            if(this.data.player !== undefined){
+                this.currentUser = this.data.player.name;
+            } else{
+                this.currentUser = "Guest";
+            }
         }
+       
     }
 })
 

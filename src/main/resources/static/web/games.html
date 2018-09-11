@@ -18,8 +18,9 @@
             <form id="login-form" onsubmit="return false">
                 <label>Name: <input id="username" type="text" name="username"></label>
                 <label>Password: <input id="password" type="text" name="password"></label>
-                <button class="login" @click="login()">Login</button>
-                <button @click="logout(event)">Log out</button>
+                <button class="login regbutton" @click="login()">Login</button>
+                <button class="regbutton" @click="logout(event)">Log out</button>
+                <button @click="signUp()" class="signup regbutton">Sign Up</button>
             </form>
 
         </section>

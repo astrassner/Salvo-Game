@@ -69,6 +69,7 @@ public class Player {
         return userName;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

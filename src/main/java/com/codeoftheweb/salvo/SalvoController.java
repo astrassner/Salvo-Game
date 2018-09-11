@@ -1,10 +1,11 @@
 package com.codeoftheweb.salvo;
 
+import org.omg.PortableInterceptor.SUCCESSFUL;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -103,6 +104,26 @@ public class SalvoController{
 
         return scoreMap;
     }
+
+    @RequestMapping(value ="/players", method= RequestMethod.POST)
+    public ResponseEntity<String> createPlayer(String userName, String password){
+
+        Player player = playerRepository.findByUserName(userName);
+
+        if(player == null){
+            Player newPlayer = new Player(userName, password);
+
+            playerRepository.save(newPlayer);
+
+            return new ResponseEntity<>("Player greated", HttpStatus.CREATED);
+
+        }else{
+            return new ResponseEntity<>("error", HttpStatus.FORBIDDEN);
+        }
+
+    }
+
+
 
 /*    public List<Object> getPlayerOfSalvoDTO(GamePlayer gamePlayer){
 

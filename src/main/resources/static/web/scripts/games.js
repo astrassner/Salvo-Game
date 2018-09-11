@@ -51,51 +51,70 @@ var games = new Vue({
     methods: {
         getData: function () {
             fetch(this.url)
-            .then(function(r){
-                return r.json().then(function(data){
-                    games.data = data;
-                    games.getCurrentUser();
-                })
-            });
-//            this.$http.get(this.url).then(response => {
-//
-//                this.data = response.body;
-//                console.log(this.data);
-//            })
+                .then(function (r) {
+                    return r.json().then(function (data) {
+                        games.data = data;
+                        games.getCurrentUser();
+                    })
+                });
+            //            this.$http.get(this.url).then(response => {
+            //
+            //                this.data = response.body;
+            //                console.log(this.data);
+            //            })
         },
-        login: function(){
-            
+        login: function () {
+
             var username = $("#username").val();
             var password = $("#password").val();
-                             
-            $.post("/api/login", 
-                {username: username,
-                password: password})
-            .done(function(){
-                
-                location.reload()
-            })
-            .fail();
+
+            $.post("/api/login", {
+                    username: username,
+                    password: password
+                })
+                .done(function () {
+
+                    location.reload()
+                })
+                .fail();
         },
-        logout: function(evt){
+        logout: function (evt) {
             evt.preventDefault();
-            
+
             $.post("/api/logout")
-            .done(function(){
-                
-                location.reload()
-            })
-            .fail()
+                .done(function () {
+
+                    location.reload()
+                })
+                .fail()
         },
-        getCurrentUser: function(){
-            
-            if(this.data.player !== undefined){
+        signUp: function () {
+
+            var username = $("#username").val();
+            var password = $("#password").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/api/players",
+                data: "userName=" + username + "&password=" + password
+            }).fail(function(error){
+                console.log(error);
+            }).done(function(response){
+                $("#username").val('');
+                $("#password").val('');
+                console.log(response);
+            })
+
+        },
+        getCurrentUser: function () {
+
+            if (this.data.player !== undefined) {
                 this.currentUser = this.data.player.name;
-            } else{
+            } else {
                 this.currentUser = "Guest";
             }
         }
-       
+
     }
 })
 
@@ -105,46 +124,45 @@ var leaderboard = new Vue({
         url: "http://localhost:8080/api/leader_board",
         data: [],
         board: [],
-        
+
     },
-    created: function(){
+    created: function () {
         this.getData();
     },
-    methods:{
-        getData: function(){
+    methods: {
+        getData: function () {
             fetch(this.url)
-            .then(function(response){
-                return response.json();
-            })
-            .then(function(data){
-                leaderboard.data = data;
-                
-                leaderboard.comparator(data);
-                
-                console.log(leaderboard.data);
-            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    leaderboard.data = data;
+
+                    leaderboard.comparator(data);
+
+                })
         },
-        comparator: function(data){
+        comparator: function (data) {
             var finalArray = [];
-            
-            for(let player in data){
+
+            for (let player in data) {
                 var everyPlayer = {};
                 everyPlayer.name = player;
-                
-                for(let prop in data[player]){
+
+                for (let prop in data[player]) {
                     everyPlayer[prop] = data[player][prop];
                 }
-                
+
                 finalArray.push(everyPlayer);
             }
-            
-            finalArray.sort(function(a, b){
+
+            finalArray.sort(function (a, b) {
                 return b.total - a.total;
             })
-            
+
             this.board = finalArray;
-            
+
         },
     }
-    
+
 })

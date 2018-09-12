@@ -194,18 +194,20 @@ public class SalvoController{
 
     public Map<String, Object> getGamePlayerDTO(GamePlayer gamePlayer) {
         Map<String, Object> dto = new LinkedHashMap<>();
-        dto.put("id", gamePlayer.getId());
-        dto.put("player", getPlayerDTO(gamePlayer.getPlayer()));
+        dto.put("gpid", gamePlayer.getId());
+        dto.put("id", gamePlayer.getPlayer().getId());
+        dto.put("player", gamePlayer.getPlayer().getUserName());
+        /*dto.put("player", getPlayerDTO(gamePlayer.getPlayer()));*/
 
         return dto;
     }
 
-    public Map<String, Object> getPlayerDTO(Player player) {
+    /*public Map<String, Object> getPlayerDTO(Player player) {
         Map<String, Object> dto = new LinkedHashMap<>();
         dto.put("id", player.getId());
         dto.put("email", player.getUserName());
         return dto;
-    }
+    }*/
 
     public Map<String, Object> getShipsDTO(Ship ship){
         Map<String, Object> dto = new LinkedHashMap<>();

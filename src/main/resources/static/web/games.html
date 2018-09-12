@@ -29,7 +29,7 @@
            <p>Hello {{currentUser}}</p>
             <ol id="gameList">
                 <li v-for="games in data.games">
-                    <p>{{games.created}}<span v-for="gp in games.gamePlayers">, {{gp.player.email}}</span></p>
+                    <p>{{games.created}}<span v-for="gp in games.gamePlayers">, {{gp.player}}</span></p>
                 </li>
             </ol>
 

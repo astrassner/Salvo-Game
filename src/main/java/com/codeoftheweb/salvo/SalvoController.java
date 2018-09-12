@@ -110,7 +110,13 @@ public class SalvoController{
 
         Player player = playerRepository.findByUserName(userName);
 
-        if(player == null){
+        if(userName.length() <= 6 || userName.indexOf("@") == -1){
+            return new ResponseEntity<>("You have to type your email", HttpStatus.CONFLICT);
+
+        }else if(password.length() < 3) {
+            return new ResponseEntity<>("Your password is not long enough", HttpStatus.CONFLICT);
+
+        }else if(player == null){
             Player newPlayer = new Player(userName, password);
 
             playerRepository.save(newPlayer);
@@ -118,7 +124,7 @@ public class SalvoController{
             return new ResponseEntity<>("Player greated", HttpStatus.CREATED);
 
         }else{
-            return new ResponseEntity<>("error", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Username exist", HttpStatus.FORBIDDEN);
         }
 
     }
